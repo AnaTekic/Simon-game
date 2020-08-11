@@ -1,49 +1,18 @@
 
 let gamePattern = [];
-let redSound = new Audio("./sounds/red.mp3");
-let blueSound = new Audio("./sounds/blue.mp3");
-let greenSound = new Audio("./sounds/green.mp3");
-let yellowSound = new Audio("./sounds/yellow.mp3");
+let buttonColours = ["red", "blue", "yellow", "green"];
 
-//connect random number with a color
-let buttonColors = ["red", "blue", "yellow", "green"];
-let randomChosenColor= buttonColors[nextSequence()];
 
-//put randomly chosen color into game array
-gamePattern.push(randomChosenColor);
-
-//select random number  to apply to the array 0-3
 function nextSequence() {
-let randomNumber = Math.floor(Math.random()*4);
-return randomNumber
-};
+  let randomNumber = Math.floor(Math.random() * 4);
+  let randomChosenColour = buttonColours[randomNumber];
+  gamePattern.push(randomChosenColour);
+ console.log(randomChosenColour);
+  $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
 
-//select button with the same id as randomChosenColor
+  let audio = new Audio("sounds/" + randomChosenColour + ".mp3");
 
-
-$(document).keypress(function() {
- //add and remove class to simulate flash
-   $(`#${randomChosenColor}`).addClass("pressed");
-   setTimeout(function () {
-    $(`#${randomChosenColor}`).removeClass('pressed');
-}, 200);
-
-  //play appropriate sound
-  switch(randomChosenColor) {
-  case "red":
-    redSound.play();
-    break;
-  case "blue":
-    blueSound.play();
-    break;
-    case "green":
-      greenSound.play();
-      break;
-    case "yellow":
-      yellowSound.play();
-      break;
-  default:
-    // code block
+  audio.play();
 }
 
-});
+$(document).keypress(nextSequence)
