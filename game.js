@@ -4,6 +4,7 @@ let userClickedPattern = [];
 let level = 0;
 let started = false;
 
+
 //function that plays appropriate sound, to be implemented into other functions
 
 
@@ -75,6 +76,23 @@ function checkAnswer(currentLevel) {
     }
   } else {
     console.log("wrong");
+    let wrongAudio = new Audio ("./sounds/wrong.mp3");
+    wrongAudio.play();
+    $("body").addClass("game-over");
+
+    setTimeout(function() {
+      $("body").removeClass('game-over');
+    }, 300);
+    $("#level-title").text("Game over, press any key to restart");
+    startOver();
+
   };
 
 };
+//start over - reset values
+function startOver() {
+
+  started = false;
+  level=0;
+  gamePattern= [];
+}
